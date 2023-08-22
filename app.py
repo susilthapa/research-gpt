@@ -26,11 +26,13 @@ brwoserless_api_key = os.getenv("BROWSERLESS_API_KEY")
 serper_api_key = os.getenv("SERP_API_KEY")
 
 # 1. Tool for search
+
+
 def search(query):
     url = "https://google.serper.dev/search"
 
-    payload  = json.dumps({
-        "q":query
+    payload = json.dumps({
+        "q": query
     })
 
     headers = {
@@ -45,6 +47,8 @@ def search(query):
     return response.text
 
 # 2. Tool for scraping
+
+
 def scrape_website(objective: str, url: str):
     '''
      - scrape website, and also will summarize the content based on objective if the content is too large
@@ -83,7 +87,6 @@ def scrape_website(objective: str, url: str):
             return text
     else:
         print(f"HTTP request failed with status code {response.status_code}")
-
 
 
 def summary(objective, content):
@@ -130,7 +133,7 @@ class ScrapeWebsiteTool(BaseTool):
 
     def _arun(self, url: str):
         raise NotImplementedError("error here")
-    
+
 
 # 3. Create langchain agent with the tools above
 tools = [
@@ -160,7 +163,7 @@ agent_kwargs = {
     "system_message": system_message,
 }
 
-llm = ChatOpenAI(temperature=0, model="gpt-3.5-turbo-16k-0613")
+llm = ChatOpenAI(temperature=0, model="gpt-3.5-turbo-0613")
 memory = ConversationSummaryBufferMemory(
     memory_key="memory", return_messages=True, llm=llm, max_token_limit=1000)
 
