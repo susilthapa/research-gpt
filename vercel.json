@@ -2,20 +2,14 @@
     "devCommand":"uvicorn main:app --reload",
     "builds":[
         {
-            "src": "api/main.py",
+            "src": "/api/main.py",
             "use":"@vercel/python"
         }
     ],
     "routes":[
         {
             "src":"/(.*)",
-            "dest":"api/main.py"
+            "dest":"/api/main.py"
         }
-    ],
-    "rewrites": [
-        { 
-            "source": "/(.*)", 
-            "destination": "/api/main.py" 
-        }
-      ]
+    ]
 }
