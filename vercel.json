@@ -13,6 +13,9 @@
         }
     ],
     "rewrites": [
-        { "source": "/(.*)", "destination": "/api/main.py" }
+        { 
+            "source": "/(.*)", 
+            "destination": "/api/main.py" 
+        }
       ]
 }
