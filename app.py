@@ -20,6 +20,7 @@ from langchain.prompts import MessagesPlaceholder
 from langchain.memory import ConversationSummaryBufferMemory
 from langchain.agents import AgentType
 
+from fastapi import FastAPI
 
 load_dotenv()
 brwoserless_api_key = os.getenv("BROWSERLESS_API_KEY")
@@ -178,19 +179,41 @@ agent = initialize_agent(
 
 
 # 4. Use streamlit to create a web app
-def main():
-    st.set_page_config(page_title="AI research agent", page_icon=":bird")
+# def main():
+#     st.set_page_config(page_title="AI research agent", page_icon=":bird")
 
-    st.header("AI research agent :bird:")
-    query = st.text_input("Research goal")
+#     st.header("AI research agent :bird:")
+#     query = st.text_input("Research goal")
 
-    if query:
-        st.write("Doing research for ", query)
+#     if query:
+#         st.write("Doing research for ", query)
 
-        result = agent({"input": query})
+#         result = agent({"input": query})
 
-        st.info(result['output'])
+#         st.info(result['output'])
 
 
-if __name__ == '__main__':
-    main()
+# 4 Setup FastAPI
+#
+# if __name__ == '__main__':
+# main()
+#
+
+
+app = FastAPI()
+
+
+class Query(BaseModel):
+    query: str
+
+
+@app.post("/query")
+def researchAgent(query: Query):
+    query = query.query
+    content = agent({"input": query})['output']
+    return content
+
+
+@app.get("/")
+def home():
+    return {"message": "Hello, world!"}

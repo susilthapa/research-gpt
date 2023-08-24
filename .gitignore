@@ -3,3 +3,5 @@
 test_server.py
 venv
 appCopy.py
+__pycache__
+.vscode
