@@ -5,3 +5,4 @@ venv
 appCopy.py
 __pycache__
 .vscode
+.vercel
